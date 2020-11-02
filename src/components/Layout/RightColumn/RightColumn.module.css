@@ -1,0 +1,5 @@
+.rightColumn {
+    grid-area: rc;
+    background-color: #a9aba9;
+}
+
