@@ -3,7 +3,7 @@ import './App.css';
 import Navbar from "./components/Layout/Navbar/Navbar.jsx";
 import Footer from "./components/Layout/Footer/Footer.jsx";
 import RightColumn from "./components/Layout/RightColumn/RightColumn.jsx";
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {HashRouter, Route, withRouter} from "react-router-dom";
 import HeaderContainer from "./components/Layout/Header/HeaderContainer";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
@@ -74,11 +74,11 @@ let AppContainer = compose(
 
 let SamuraiApp = (props) => {
     return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <HashRouter>
             <Provider store={store}>
                 <AppContainer/>
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 

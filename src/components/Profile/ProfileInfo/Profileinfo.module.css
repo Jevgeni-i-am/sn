@@ -9,14 +9,17 @@
 
 .profileAva img{
     align: start;
-    width: 100px;
-    height: 120px;
+    max-width: 150px;
+    max-height: 150px;
     margin:auto;
 
 }
 
 .descriptionBlock {
     padding: 10px;
+}
 
+.contact {
+    padding-left: 10px;
 }
 

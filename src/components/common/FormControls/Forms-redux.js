@@ -38,6 +38,11 @@ const LoginForm = ({handleSubmit, error}) => {
             <div>
                 <button>Login</button>
             </div>
+            <div>
+                <h1>Test account:
+                Email: free@samuraijs.com
+                    Password: free</h1>
+            </div>
         </form>)
 }
 

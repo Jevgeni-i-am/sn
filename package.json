@@ -25,7 +25,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build -b master -r https://github.com/Jevgeni-i-am/sn.git",
     "Git ADD / Remember to add commit name at next": "git add .",
     "Push to GitHub": "git push"
   },
