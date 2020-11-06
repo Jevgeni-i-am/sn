@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
-import css from "./Profileinfo.module.css";
-import banner from "../../../images/beachparty.jpg";
+import css from "./ProfileInfo.module.css";
+import leon from "../../../images/meters300.jpg";
 import Preloader from "../../common/Preloaders/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import faceId from "../../../images/faceid.png"
+import ProfileDataForm from "./ProfileDataForm.jsx";
+import {NavLink} from "react-router-dom";
 
-const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}) => {
+const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
     let [editMode, setEditMode] = useState(false);
-
     if (!profile) {
         return <Preloader/>
     }
-
 
     const onMainPhotoSelected = (e) => {
         if (e.target.files.length) {
@@ -19,29 +19,31 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}) => {
         }
     }
 
+//Действие при нажатии кнопки "save"
+    const onSubmit = (formData) => {
+        saveProfile(formData)
+            .then(
+                () => {
+                    setEditMode(false);
+                })
+    }
+
     return (
-
-
-        <div className={css.profileBanner}>
-            <img src={banner} alt=" ">
-            </img>
+        <div>
+            <div className={css.profileBanner}>
+                <img src={leon} alt=" "></img>
+            </div>
             <div className={css.descriptionBlock}>
-                <div className={css.profileAva}>
-                    <img src={profile.photos.large || faceId} className={css.mainPhoto} alt=" "></img>
-                    <div>{isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}</div>
-                </div>
+                <img src={profile.photos.large || faceId} className={css.profileAva} alt=" "></img>
+                {isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
 
                 {editMode
-                    ? <ProfileDataForm profile={profile}/>
+                    ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
                     : <ProfileData goToEditMode={() => {
                         setEditMode(true)
                     }}
                                    profile={profile} isOwner={isOwner}/>}
-
-                <ProfileStatusWithHooks
-                    status={status}
-                    updateStatus={updateStatus}
-                />
+                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
         </div>
 
@@ -72,16 +74,12 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
             <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
             return (
                 <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
-            )
+                )
         })}
         </div>
     </div>
 }
-const ProfileDataForm = ({profile}) => {
-    return <div>
-        form
-    </div>
-}
+
 
 const Contact = ({contactTitle, contactValue}) => {
     return <div className={css.contact}><b>{contactTitle}</b> : {contactValue}</div>

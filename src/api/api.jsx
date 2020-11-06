@@ -28,6 +28,9 @@ export const profileAPI = {
             }
         });
     },
+    saveProfile(profile){
+        return instance.put(`profile`, profile);
+    },
 }
 
 
@@ -50,7 +53,6 @@ export const usersAPI = {
     unfollow(userId) {
         return instance.delete(`follow/${userId}`)
     }
-
 }
 
 // Авторизован ли я?

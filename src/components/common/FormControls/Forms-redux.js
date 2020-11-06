@@ -40,7 +40,7 @@ const LoginForm = ({handleSubmit, error}) => {
             </div>
             <div>
                 <h1>Test account:
-                Email: free@samuraijs.com
+                    Email: free@samuraijs.com
                     Password: free</h1>
             </div>
         </form>)
@@ -63,8 +63,9 @@ const AddMessageForm = ({handleSubmit}) => {
 }
 
 //Helper - Login Page form
-const createField = (placeholder, name, component, validators, props = {}, text = "") => (
-    <div> {text} <Field placeholder={placeholder} name={name} component={component} validate={validators} {...props}/></div>)
+export const createField = (placeholder, name, component, validators, props = {}, text = "") => (
+    <div> {text} <Field placeholder={placeholder} name={name} component={component} validate={validators} {...props}/>
+    </div>)
 
 //a unique name for the form
 export const AddNewPostFormRedux = reduxForm({form: "ProfileAddNewPostForm"})(AddNewPostForm)

@@ -1,10 +1,12 @@
 import {profileAPI, usersAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const DELETE_POST = 'DELETE_POST';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
+const SAVE_PROFILE_SUCCESS = 'SAVE_PROFILE_SUCCESS';
 
 let initialState = {
     posts: [
@@ -16,7 +18,14 @@ let initialState = {
     profile: null,
     status: ""
 };
+/*
+Нам не запрещено в рамках одного редюсера обрашаться к другому редюсеру,
+глобальному стейту, из него что-либо доставать
+Редюсер это бизнес логика. Бизнес логика состоит из разных частей.
+И эти части хотят между собой иногда взаимодействовать
 
+
+*/
 const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
@@ -48,9 +57,15 @@ const profileReducer = (state = initialState, action) => {
             }
 
         case SAVE_PHOTO_SUCCESS:
+
             return {
                 ...state, profile: {...state.profile, photos: action.photos}
             }
+        /*        case SAVE_PROFILE_SUCCESS:
+                    debugger;
+                    return {
+                        ...state, profile: {...state.profile, profile: action.profile}
+                    }*/
         default:
             return state;
     }
@@ -83,10 +98,22 @@ export const savePhoto = (file) => async (dispatch) => {
     }
 };
 
+export const saveProfile = (profile) => async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+    const response = await profileAPI.saveProfile(profile);
+    if (response.data.resultCode === 0) {
+        dispatch(saveProfileSuccess(getUserProfile(userId)));
+    } else {
+        dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0]}));
+        return Promise.reject(response.data.messages[0]);
+    }
+};
+
 //Action Creators
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
 export const setStatus = (status) => ({type: SET_STATUS, status});
 export const deletePost = (postId) => ({type: DELETE_POST, postId});
 export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText});
 export const savePhotoSuccess = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos});
+export const saveProfileSuccess = (profile) => ({type: SAVE_PROFILE_SUCCESS, profile});
 export default profileReducer;

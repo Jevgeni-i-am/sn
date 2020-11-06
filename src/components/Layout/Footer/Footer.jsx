@@ -1,21 +1,17 @@
 import React from 'react';
-import "./Footer.modeule.css";
+import {NavLink} from "react-router-dom";
+import css from "./Footer.module.css";
 
 const Footer = () => {
     return (
-        <div className="footer">
-            <div>
-                <div className="horizontal-and-vertical-centering">
-                    <div className="child">
-                        <p className="pretty-text-underline">
-                            <p className="etched-text">Since 2020</p>
-                        </p>
-                    </div>
-                </div>
+        <nav>
+            <div className={css.text} >
+                <p>website created by
+                    <NavLink to="/profile/11831"> Jevgeni </NavLink> </p>
+            <p>Under construction.....</p>
             </div>
-        </div>
 
-
+        </nav>
     )
 }
 

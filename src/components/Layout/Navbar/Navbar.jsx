@@ -1,9 +1,6 @@
 import React from "react";
 import css from "./Navbar.module.css";
 import {NavLink} from "react-router-dom";
-import meetup from "../../../images/meetup.png"
-import meetup2 from "../../../images/meetup2.png"
-import sun from "../../../images/sun.png"
 
 const Navbar = (props) => {
 
@@ -49,41 +46,13 @@ const Navbar = (props) => {
                         </NavLink>
                     </div>
                     <div>
-                        __________
-                    </div>
-                    <div>
                         <NavLink to="/users"
                                  activeClassName={css.activeLink}>
                             Find users
                         </NavLink>
                     </div>
-                    <div>
-                        __________
-                    </div>
-                    <div>
-                        __________
-                    </div>
                 </div>
-
-
-                <div>
-                    <img src={meetup} align="top" alt="_"></img>
-                    <div><p>Син</p></div>
-                </div>
-                <div>
-                    <div>
-                        <img src={meetup2} align="top" alt="_"></img>
-                        <div><p>Мох</p></div>
-                    </div>
-                </div>
-                <div>
-                    <img src={sun} align="top" alt="_"></img>
-                    <div><p>Чуд</p></div>
-                </div>
-
             </div>
-
-
         </nav>
     )
 }
